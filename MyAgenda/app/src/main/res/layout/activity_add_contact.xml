@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0B1120"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo Contato"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="34sp"
+        android:layout_marginTop="40dp"/>
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:hint="Nome"
+        android:textColorHint="#94A3B8"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:backgroundTint="#7C3AED"/>
+
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="Telefone"
+        android:textColorHint="#94A3B8"
+        android:textColor="#FFFFFF"
+        android:inputType="phone"
+        android:padding="16dp"
+        android:backgroundTint="#7C3AED"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="40dp"
+        android:text="Salvar Contato"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#7C3AED"/>
+
+</LinearLayout>
