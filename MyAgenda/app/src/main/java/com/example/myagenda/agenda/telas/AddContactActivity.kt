@@ -1,10 +1,13 @@
-package com.example.myagenda.agenda
+package com.example.myagenda.agenda.telas
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.myagenda.agenda.data.AppDatabase
+import com.example.myagenda.agenda.model.Contact
 import com.example.myagenda.databinding.ActivityAddContactBinding
-
+import kotlinx.coroutines.launch
 
 class AddContactActivity : AppCompatActivity() {
 
@@ -16,6 +19,9 @@ class AddContactActivity : AppCompatActivity() {
         binding = ActivityAddContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val database = AppDatabase.Companion.getDatabase(this)
+        val contactDao = database.contactDao()
+
         binding.btnSave.setOnClickListener {
 
             val name = binding.edtName.text.toString()
@@ -23,14 +29,16 @@ class AddContactActivity : AppCompatActivity() {
 
             if (name.isNotEmpty() && phone.isNotEmpty()) {
 
-                ContactRepository.contacts.add(
-                    Contact(name, phone)
-                )
+                lifecycleScope.launch {
+                    contactDao.insert(
+                        Contact(name = name, phone = phone)
+                    )
 
-                Toast.makeText(this, "Contato adicionado!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AddContactActivity, "Contato adicionado ao ROOM!", Toast.LENGTH_SHORT).show()
 
-                binding.edtName.text.clear()
-                binding.edtPhone.text.clear()
+                    binding.edtName.text.clear()
+                    binding.edtPhone.text.clear()
+                }
 
             } else {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()

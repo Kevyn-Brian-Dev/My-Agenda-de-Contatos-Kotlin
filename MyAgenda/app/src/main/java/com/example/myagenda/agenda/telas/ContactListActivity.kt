@@ -1,10 +1,12 @@
-package com.example.myagenda.agenda
+package com.example.myagenda.agenda.telas
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myagenda.agenda.data.AppDatabase
 import com.example.myagenda.databinding.ActivityContactListBinding
-
+import kotlinx.coroutines.launch
 
 class ContactListActivity : AppCompatActivity() {
 
@@ -17,9 +19,22 @@ class ContactListActivity : AppCompatActivity() {
         binding = ActivityContactListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = ContactAdapter(ContactRepository.contacts)
+        val database = AppDatabase.Companion.getDatabase(this)
+        val contactDao = database.contactDao()
+
+        adapter = ContactAdapter(emptyList()) { contact ->
+            lifecycleScope.launch {
+                contactDao.delete(contact)
+            }
+        }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+
+        lifecycleScope.launch {
+            contactDao.getAllContacts().collect { listaContatos ->
+                adapter.updateList(listaContatos)
+            }
+        }
     }
 }

@@ -12,13 +12,13 @@
         android:theme="@style/Theme.MyAgenda">
 
         <activity
-            android:name=".agenda.ContactListActivity" />
+            android:name=".agenda.telas.ContactListActivity" />
 
         <activity
-            android:name=".agenda.AddContactActivity" />
+            android:name=".agenda.telas.AddContactActivity" />
 
         <activity
-            android:name=".agenda.MainActivity"
+            android:name=".agenda.telas.MainActivity"
             android:exported="true">
 
             <intent-filter>
